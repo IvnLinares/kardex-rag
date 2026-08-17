@@ -1,0 +1,57 @@
+# Proyecto: Módulo AI - Copiloto Analítico para Sistema de Inventarios y Kardex (Smart RAG)
+# Día 1: solo levantamos DB + LLM local. Backend y Frontend se agregan a partir del Día 1 tarde / Día 3.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: kardex_rag_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-kardex_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-kardex_rag}
+    ports:
+      - "5433:5432"
+    volumes:
+      - kardex_pgdata:/var/lib/postgresql/data
+      - ./infra/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-kardex_admin}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama
+    container_name: kardex_rag_ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - kardex_ollama:/root/.ollama
+
+  # backend:
+  #   build: ./backend
+  #   container_name: kardex_rag_backend
+  #   env_file: .env
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./backend:/app
+  #   # Descomentar cuando exista backend/Dockerfile (Día 3-4)
+
+  # frontend:
+  #   build: ./frontend
+  #   container_name: kardex_rag_frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - ./frontend:/app
+  #   # Descomentar cuando exista frontend/Dockerfile (Día 5)
+
+volumes:
+  kardex_pgdata:
+  kardex_ollama:

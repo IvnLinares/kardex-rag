@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(docker compose *)",
+      "Bash(docker exec *)",
+      "Bash(docker logs *)",
+      "Bash(docker ps*)",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(npm *)",
+      "Bash(pip install *)",
+      "Bash(uvicorn *)",
+      "Bash(curl *)"
+    ],
+    "ask": [
+      "Bash(docker compose down*)",
+      "Bash(git push --force*)"
+    ]
+  }
+}
