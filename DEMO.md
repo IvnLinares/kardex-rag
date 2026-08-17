@@ -47,7 +47,7 @@ Abrí **http://localhost:5173** en el navegador antes de empezar a grabar.
    datos del Kardex...") en vez de contestar con conocimiento general. Esto
    es un guardrail por score de similitud, no solo una instrucción al LLM
    (mencionar que un modelo chico como `phi3` no seguía esa instrucción de
-   forma confiable — ver CLAUDE.md Día 3 y Día 6 para el detalle técnico).
+   forma confiable — ver `backend/app/rag/chain.py` para el detalle técnico).
 
 5. **Arquitectura, brevemente (40s).** Mostrar en el editor (o mencionar):
    - `docker-compose.yml`: 4 servicios (Postgres+pgvector, Ollama, FastAPI,
@@ -63,7 +63,7 @@ Abrí **http://localhost:5173** en el navegador antes de empezar a grabar.
 
 7. **Cierre (10s).** "Sprint de 7 días completo: infraestructura, ingesta de
    datos, cadena RAG, API con streaming, UI de chat, y control de
-   alucinaciones — todo documentado en CLAUDE.md."
+   alucinaciones."
 
 ## Preguntas de respaldo (por si alguna falla en vivo)
 

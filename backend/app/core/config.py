@@ -9,9 +9,9 @@ class Settings(BaseSettings):
     backend_port: int = 8000
     cors_origins: str = "http://localhost:5173"
 
-    # NOTA: `llm_provider`/`openai_*` documentan la alternativa OpenAI (ver
-    # CLAUDE.md secciones 3 y 8), pero app/rag/chain.py todavia usa ChatOllama
-    # sin condicionar por `llm_provider` -- no estan conectados al codigo.
+    # NOTA: `llm_provider`/`openai_*` documentan la alternativa OpenAI, pero
+    # app/rag/chain.py todavia usa ChatOllama sin condicionar por
+    # `llm_provider` -- no estan conectados al codigo.
     llm_provider: str = "ollama"
     ollama_base_url: str = "http://localhost:11434"
     ollama_model: str = "phi3"

@@ -3,8 +3,8 @@
 Incluye un guardrail por score de similitud: si el mejor resultado
 recuperado esta lejos de la pregunta, se responde con un mensaje fijo sin
 llamar al LLM. Un modelo chico como `phi3` no sigue de forma confiable la
-instruccion "no respondas fuera de contexto" (ver CLAUDE.md, Dia 3) -- el
-guardrail por score es mas confiable que depender solo del prompt.
+instruccion "no respondas fuera de contexto" -- el guardrail por score es
+mas confiable que depender solo del prompt.
 """
 
 from collections.abc import AsyncIterator
@@ -29,7 +29,7 @@ RETRIEVER_TOP_K = 5
 # Distancia coseno (pgvector, menor = mas similar) maxima para considerar que
 # hay contexto relevante. Calibrado empiricamente: preguntas dentro del
 # dominio del Kardex puntuaron <=0.294, preguntas fuera de contexto (ej.
-# "cual es la capital de Francia?") puntuaron >=0.329. Ver CLAUDE.md Dia 6.
+# "cual es la capital de Francia?") puntuaron >=0.329.
 RELEVANCE_THRESHOLD = 0.32
 
 NO_CONTEXT_ANSWER = (

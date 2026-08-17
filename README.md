@@ -11,8 +11,6 @@ Copiloto con IA (RAG) para un sistema de facturación y bodegas: permite consult
 lenguaje natural el estado del Kardex, traslados de bodega y reportes, en vez de
 navegar tablas y filtros.
 
-> Contexto completo del proyecto (rol del asistente, convenciones, roadmap del sprint):
-> ver [`CLAUDE.md`](./CLAUDE.md).
 
 ## Stack
 
@@ -144,8 +142,8 @@ python -m app.rag.console
 > **Nota:** `phi3` corre en CPU en la mayoría de los setups locales (~10 tok/s).
 > Las respuestas pueden tardar. El control de preguntas fuera de contexto no
 > depende solo del prompt (un modelo chico como `phi3` no lo seguía de forma
-> confiable) sino de un guardrail por score de similitud — ver `CLAUDE.md`
-> sección 8, Día 6.
+> confiable) sino de un guardrail por score de similitud (ver
+> `backend/app/rag/chain.py`, `RELEVANCE_THRESHOLD`).
 
 ### 5. Probar el endpoint `/api/chat` (streaming)
 
@@ -219,9 +217,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | 7   | Retrospectiva y Documentación                              | ✅ Completo |
 | —   | Post-sprint: UI con glassmorphism + GSAP, paleta monocromática | ✅ Completo |
 
-Detalle completo de cada fase en [`CLAUDE.md`](./CLAUDE.md), sección 7 (roadmap)
-y sección 8 (estado actual, con el detalle de cada hito y los bugs reales
-encontrados en el camino). Guion para grabar la demo: [`DEMO.md`](./DEMO.md).
+Guion para grabar la demo: [`DEMO.md`](./DEMO.md).
 
 ## Seguridad
 

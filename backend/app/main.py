@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     # loop="none" evita que uvicorn hardcodee ProactorEventLoop en Windows
     # (lo hace incluso si ya fijamos la policy arriba) y deja que respete la
-    # policy activa -- ver CLAUDE.md Dia 6.
+    # policy activa.
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",

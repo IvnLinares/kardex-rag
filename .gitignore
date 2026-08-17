@@ -31,6 +31,11 @@ frontend/dist/
 !.vscode/extensions.json
 .idea/
 
+# Contexto de proyecto para el asistente de IA -- solo local, no en el repo
+# publico (documenta decisiones/bugs internos del desarrollo, no secretos).
+/CLAUDE.md
+/INSTRUCTIVO_DIA_1.md
+
 # OS / editor
 .DS_Store
 *.log
