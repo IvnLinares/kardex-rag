@@ -31,4 +31,13 @@ app.include_router(chat_router, prefix="/api")
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("app.main:app", host="0.0.0.0", port=settings.backend_port, reload=True)
+    # loop="none" evita que uvicorn hardcodee ProactorEventLoop en Windows
+    # (lo hace incluso si ya fijamos la policy arriba) y deja que respete la
+    # policy activa -- ver CLAUDE.md Dia 6.
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=settings.backend_port,
+        reload=True,
+        loop="none",
+    )

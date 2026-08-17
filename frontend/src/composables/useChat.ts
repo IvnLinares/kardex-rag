@@ -1,18 +1,41 @@
 import { ref } from 'vue'
 
+export interface ChatSource {
+  producto_id: string
+  nombre: string
+}
+
 export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
+  sources: ChatSource[]
 }
 
 const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:8000'
 
-function parseSseChunk(rawEvent: string): string | null {
-  const dataLine = rawEvent.split('\n').find((line) => line.startsWith('data:'))
+interface ParsedSseEvent {
+  event: string
+  content: string | null
+  sources: ChatSource[] | null
+}
+
+function parseSseEvent(rawEvent: string): ParsedSseEvent | null {
+  const lines = rawEvent.split('\n')
+  const eventLine = lines.find((line) => line.startsWith('event:'))
+  const dataLine = lines.find((line) => line.startsWith('data:'))
   if (!dataLine) return null
+
+  const event = eventLine ? eventLine.slice('event:'.length).trim() : 'message'
   try {
-    const payload = JSON.parse(dataLine.slice('data:'.length).trim()) as { content?: string }
-    return typeof payload.content === 'string' ? payload.content : null
+    const payload = JSON.parse(dataLine.slice('data:'.length).trim()) as {
+      content?: string
+      sources?: ChatSource[]
+    }
+    return {
+      event,
+      content: typeof payload.content === 'string' ? payload.content : null,
+      sources: Array.isArray(payload.sources) ? payload.sources : null,
+    }
   } catch {
     return null
   }
@@ -25,8 +48,8 @@ export function useChat() {
 
   async function sendMessage(question: string): Promise<void> {
     error.value = null
-    messages.value.push({ role: 'user', content: question })
-    messages.value.push({ role: 'assistant', content: '' })
+    messages.value.push({ role: 'user', content: question, sources: [] })
+    messages.value.push({ role: 'assistant', content: '', sources: [] })
     const assistantIndex = messages.value.length - 1
     isStreaming.value = true
 
@@ -53,8 +76,13 @@ export function useChat() {
         buffer = events.pop() ?? ''
 
         for (const rawEvent of events) {
-          const content = parseSseChunk(rawEvent)
-          if (content) messages.value[assistantIndex].content += content
+          const parsed = parseSseEvent(rawEvent)
+          if (!parsed) continue
+          if (parsed.event === 'sources' && parsed.sources) {
+            messages.value[assistantIndex].sources = parsed.sources
+          } else if (parsed.content) {
+            messages.value[assistantIndex].content += parsed.content
+          }
         }
       }
     } catch (e) {

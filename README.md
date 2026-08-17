@@ -76,8 +76,16 @@ Probar: `curl http://localhost:8000/api/health` → `{"status":"ok","database":"
 > `uvicorn app.main:app --reload` directo. `psycopg` en modo async (usado por
 > el vectorstore de `/api/chat`) no soporta el `ProactorEventLoop`, que es el
 > default de asyncio en Windows; `app/main.py` fuerza `SelectorEventLoop`
-> antes de que uvicorn cree su loop, y eso solo es posible controlando el
-> entrypoint. No afecta Docker/Linux.
+> antes de que uvicorn cree su loop. Ademas hace falta pasar `loop="none"` a
+> `uvicorn.run()`: por default, uvicorn hardcodea `ProactorEventLoop` en
+> Windows sin importar que policy este activa. No afecta Docker/Linux.
+>
+> Si despues de reiniciar el backend las respuestas no cambian (parece que
+> el codigo nuevo no se aplico), puede haber un proceso `python.exe` viejo
+> huerfano todavia escuchando el puerto: `tasklist //FI "IMAGENAME eq
+> python.exe"` para verlos todos y matarlos por PID antes de levantar uno
+> limpio (matar solo el proceso "reloader" de uvicorn no siempre mata al
+> worker hijo).
 
 ### 3. Ingesta de datos (Kardex → pgvector)
 
@@ -182,7 +190,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | 3   | Cerebro de la IA (cadena RAG, retriever, system prompt)    | ✅ Completo |
 | 4   | Exposición y Conexión (`/api/chat` con streaming)          | ✅ Completo |
 | 5   | Interfaz de Usuario (chat en Vue)                          | ✅ Completo |
-| 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | Pendiente |
+| 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | ✅ Completo |
 | 7   | Retrospectiva y Documentación                              | Pendiente |
 
 Detalle completo de cada fase en [`CLAUDE.md`](./CLAUDE.md), sección 7.
