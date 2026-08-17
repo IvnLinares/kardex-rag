@@ -67,10 +67,17 @@ cd backend
 python -m venv .venv
 source .venv/Scripts/activate   # Windows (Git Bash) — usar .venv/bin/activate en Linux/Mac
 pip install -r requirements-dev.txt
-uvicorn app.main:app --reload
+python -m app.main
 ```
 
 Probar: `curl http://localhost:8000/api/health` → `{"status":"ok","database":"connected"}`
+
+> **Nota (Windows):** se corre con `python -m app.main` y no con el CLI
+> `uvicorn app.main:app --reload` directo. `psycopg` en modo async (usado por
+> el vectorstore de `/api/chat`) no soporta el `ProactorEventLoop`, que es el
+> default de asyncio en Windows; `app/main.py` fuerza `SelectorEventLoop`
+> antes de que uvicorn cree su loop, y eso solo es posible controlando el
+> entrypoint. No afecta Docker/Linux.
 
 ### 3. Ingesta de datos (Kardex → pgvector)
 
@@ -107,7 +114,20 @@ python -m app.rag.console
 > Las respuestas pueden tardar. Es un modelo chico: puede no negarse siempre a
 > responder preguntas fuera del contexto del Kardex — ver `CLAUDE.md` sección 8.
 
-### 5. Frontend
+### 5. Probar el endpoint `/api/chat` (streaming)
+
+Con el backend corriendo (`python -m app.main`):
+
+```bash
+curl -N -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Que productos estan agotados?"}'
+```
+
+`-N` desactiva el buffering de curl para ver los eventos SSE (`data: {"content": "..."}`)
+llegar token por token en vez de todos juntos al final.
+
+### 6. Frontend
 
 ```bash
 cd frontend
@@ -160,7 +180,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | 1   | Infraestructura y Setup                                   | ✅ Completo |
 | 2   | Datos y Memoria (ingesta CSV → embeddings → pgvector)      | ✅ Completo |
 | 3   | Cerebro de la IA (cadena RAG, retriever, system prompt)    | ✅ Completo |
-| 4   | Exposición y Conexión (`/api/chat` con streaming)          | Pendiente |
+| 4   | Exposición y Conexión (`/api/chat` con streaming)          | ✅ Completo |
 | 5   | Interfaz de Usuario (chat en Vue)                          | Pendiente |
 | 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | Pendiente |
 | 7   | Retrospectiva y Documentación                              | Pendiente |

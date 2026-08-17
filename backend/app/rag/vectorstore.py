@@ -13,10 +13,11 @@ def get_embeddings() -> OllamaEmbeddings:
     )
 
 
-def get_vectorstore() -> PGVector:
+def get_vectorstore(*, async_mode: bool = False) -> PGVector:
     return PGVector(
         embeddings=get_embeddings(),
         collection_name=COLLECTION_NAME,
         connection=settings.database_url_psycopg,
         use_jsonb=True,
+        async_mode=async_mode,
     )

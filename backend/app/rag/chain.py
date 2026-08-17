@@ -1,5 +1,7 @@
 """Cadena RAG: retriever (top-5, pgvector) + LLM restringido al contexto."""
 
+from collections.abc import AsyncIterator
+
 from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -23,8 +25,8 @@ SYSTEM_PROMPT = (
 RETRIEVER_TOP_K = 5
 
 
-def get_retriever() -> BaseRetriever:
-    vectorstore = get_vectorstore()
+def get_retriever(*, async_mode: bool = False) -> BaseRetriever:
+    vectorstore = get_vectorstore(async_mode=async_mode)
     return vectorstore.as_retriever(search_kwargs={"k": RETRIEVER_TOP_K})
 
 
@@ -34,8 +36,8 @@ def format_docs(docs: list[Document]) -> str:
     return "\n\n".join(f"- {doc.page_content}" for doc in docs)
 
 
-def build_chain() -> Runnable:
-    retriever = get_retriever()
+def build_chain(*, async_mode: bool = False) -> Runnable:
+    retriever = get_retriever(async_mode=async_mode)
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", SYSTEM_PROMPT),
@@ -60,3 +62,9 @@ def build_chain() -> Runnable:
 def answer_question(question: str) -> str:
     chain = build_chain()
     return chain.invoke(question)
+
+
+async def astream_answer(question: str) -> AsyncIterator[str]:
+    chain = build_chain(async_mode=True)
+    async for chunk in chain.astream(question):
+        yield chunk
