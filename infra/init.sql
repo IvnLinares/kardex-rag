@@ -4,13 +4,7 @@
 
 CREATE EXTENSION IF NOT EXISTS vector;
 
--- Tabla base para los embeddings del Kardex (referencia inicial, LangChain puede
--- crear su propia tabla de vectorstore; ajustar en Día 2 según el loader elegido).
-CREATE TABLE IF NOT EXISTS kardex_embeddings (
-    id SERIAL PRIMARY KEY,
-    producto_id TEXT NOT NULL,
-    contenido TEXT NOT NULL,
-    metadata JSONB,
-    embedding VECTOR(1536),
-    created_at TIMESTAMPTZ DEFAULT now()
-);
+-- No se crea una tabla manual para los embeddings: el vectorstore de LangChain
+-- (langchain-postgres, ver backend/app/rag/ingest.py) gestiona su propio esquema
+-- (langchain_pg_collection / langchain_pg_embedding) con la dimensión que
+-- corresponda al modelo de embeddings configurado.

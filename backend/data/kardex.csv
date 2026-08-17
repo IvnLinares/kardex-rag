@@ -1,0 +1,51 @@
+producto_id,nombre,categoria,bodega,cantidad,fecha_ultimo_movimiento,estado
+P-1001,Router WiFi 6,Electrónica,Bodega Central,160,2026-07-17,Disponible
+P-1002,Switch 24 puertos,Electrónica,Bodega Norte,72,2026-05-23,Disponible
+P-1003,Cable UTP Cat6 (rollo),Electrónica,Bodega Central,1,2026-08-14,Bajo Stock
+P-1004,Disco SSD 1TB,Electrónica,Bodega Central,278,2026-06-01,Disponible
+P-1005,Memoria RAM 16GB DDR4,Electrónica,Bodega Central,12,2026-05-26,Bajo Stock
+P-1006,Monitor 24 pulgadas,Electrónica,Bodega Este,321,2026-07-13,Disponible
+P-1007,Teclado mecánico,Electrónica,Bodega Central,3,2026-05-20,Bajo Stock
+P-1008,Mouse inalámbrico,Electrónica,Bodega Este,99,2026-07-21,Disponible
+P-1009,Webcam Full HD,Electrónica,Bodega Sur,214,2026-08-05,Disponible
+P-1010,Impresora láser,Electrónica,Bodega Sur,0,2026-06-01,Agotado
+P-1011,Taladro percutor,Ferretería,Bodega Sur,0,2026-05-16,Agotado
+P-1012,Set de destornilladores,Ferretería,Bodega Este,492,2026-06-30,Disponible
+P-1013,Cinta métrica 5m,Ferretería,Bodega Central,14,2026-05-29,Bajo Stock
+P-1014,Martillo de goma,Ferretería,Bodega Sur,12,2026-08-09,Bajo Stock
+P-1015,Caja de tornillos autorroscantes,Ferretería,Bodega Central,13,2026-07-11,Bajo Stock
+P-1016,Guantes de trabajo,Ferretería,Bodega Central,0,2026-04-29,Agotado
+P-1017,Casco de seguridad,Ferretería,Bodega Central,252,2026-05-28,Disponible
+P-1018,Cable eléctrico 2.5mm (rollo),Ferretería,Bodega Sur,201,2026-07-22,Disponible
+P-1019,Interruptor doble,Ferretería,Bodega Sur,11,2026-05-27,Bajo Stock
+P-1020,Tomacorriente doble,Ferretería,Bodega Central,3,2026-06-10,Bajo Stock
+P-1021,Resma de papel A4,Oficina,Bodega Norte,214,2026-07-14,Disponible
+P-1022,Caja de lapiceros azules,Oficina,Bodega Norte,14,2026-05-11,Bajo Stock
+P-1023,Archivador tamaño oficio,Oficina,Bodega Central,36,2026-05-06,Disponible
+P-1024,Grapadora industrial,Oficina,Bodega Sur,53,2026-07-21,Disponible
+P-1025,Caja de clips,Oficina,Bodega Sur,275,2026-06-28,Disponible
+P-1026,Marcador de pizarra,Oficina,Bodega Este,91,2026-07-17,Disponible
+P-1027,Calculadora científica,Oficina,Bodega Sur,7,2026-04-25,Bajo Stock
+P-1028,Silla ergonómica,Oficina,Bodega Este,90,2026-06-13,Disponible
+P-1029,Escritorio metálico,Oficina,Bodega Este,44,2026-04-29,Disponible
+P-1030,Pizarra acrílica 60x90,Oficina,Bodega Central,101,2026-05-08,Disponible
+P-1031,Detergente industrial 5L,Limpieza,Bodega Este,7,2026-06-30,Bajo Stock
+P-1032,Escoba de cerdas,Limpieza,Bodega Este,303,2026-04-29,Disponible
+P-1033,Trapeador microfibra,Limpieza,Bodega Central,2,2026-05-22,Bajo Stock
+P-1034,Guantes de látex (caja),Limpieza,Bodega Sur,6,2026-08-03,Bajo Stock
+P-1035,Desinfectante multiuso 1L,Limpieza,Bodega Sur,252,2026-08-17,Disponible
+P-1036,Papel higiénico (paquete x12),Limpieza,Bodega Sur,410,2026-07-26,En Tránsito
+P-1037,Bolsas de basura (rollo x50),Limpieza,Bodega Central,0,2026-07-10,Agotado
+P-1038,Alcohol en gel 1L,Limpieza,Bodega Norte,410,2026-07-28,Disponible
+P-1039,Paño multiuso (paquete x5),Limpieza,Bodega Central,8,2026-08-15,Bajo Stock
+P-1040,Jabón líquido para manos 1L,Limpieza,Bodega Central,469,2026-05-03,En Tránsito
+P-1041,Correa de transmisión,Repuestos,Bodega Sur,143,2026-04-27,Disponible
+P-1042,Filtro de aire industrial,Repuestos,Bodega Central,268,2026-05-05,Disponible
+P-1043,Rodamiento 6205,Repuestos,Bodega Central,292,2026-05-11,En Tránsito
+P-1044,Batería 12V 7Ah,Repuestos,Bodega Norte,263,2026-06-08,Disponible
+P-1045,Fusible 10A (caja x10),Repuestos,Bodega Norte,466,2026-06-01,Disponible
+P-1046,Manguera hidráulica 1m,Repuestos,Bodega Este,495,2026-06-09,En Tránsito
+P-1047,Empaque de goma universal,Repuestos,Bodega Norte,7,2026-05-24,Bajo Stock
+P-1048,Bujía industrial,Repuestos,Bodega Sur,284,2026-06-21,Disponible
+P-1049,Aceite lubricante 1L,Repuestos,Bodega Central,52,2026-07-05,Disponible
+P-1050,Correa en V tipo A,Repuestos,Bodega Central,4,2026-06-03,Bajo Stock

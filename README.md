@@ -72,7 +72,25 @@ uvicorn app.main:app --reload
 
 Probar: `curl http://localhost:8000/api/health` → `{"status":"ok","database":"connected"}`
 
-### 3. Frontend
+### 3. Ingesta de datos (Kardex → pgvector)
+
+Requiere el modelo de embeddings local en Ollama (una sola vez, ~274MB):
+
+```bash
+docker exec -it kardex_rag_ollama ollama pull nomic-embed-text
+```
+
+Con el backend y la DB corriendo:
+
+```bash
+cd backend
+python -m app.rag.ingest
+```
+
+Carga `backend/data/kardex.csv` (50 registros ficticios) a la colección `kardex`
+en pgvector, vía `langchain-postgres`.
+
+### 4. Frontend
 
 ```bash
 cd frontend
@@ -123,7 +141,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | Día | Hito                                                    | Estado |
 | --- | -------------------------------------------------------- | ------ |
 | 1   | Infraestructura y Setup                                   | ✅ Completo |
-| 2   | Datos y Memoria (ingesta CSV → embeddings → pgvector)      | Pendiente |
+| 2   | Datos y Memoria (ingesta CSV → embeddings → pgvector)      | ✅ Completo |
 | 3   | Cerebro de la IA (cadena RAG, retriever, system prompt)    | Pendiente |
 | 4   | Exposición y Conexión (`/api/chat` con streaming)          | Pendiente |
 | 5   | Interfaz de Usuario (chat en Vue)                          | Pendiente |
