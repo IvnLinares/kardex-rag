@@ -1,0 +1,10 @@
+# Normaliza los finales de línea a LF en el repo, sin importar el core.autocrlf
+# del cliente Git (evita que Windows con autocrlf=true rompa prettier/ruff format).
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
