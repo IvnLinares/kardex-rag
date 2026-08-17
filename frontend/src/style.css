@@ -1,19 +1,24 @@
 :root {
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #f2effa;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-2: #ff5fa2;
+  --accent-bg: rgba(170, 59, 255, 0.12);
   --accent-border: rgba(170, 59, 255, 0.5);
+
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: rgba(80, 40, 120, 0.18);
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
 
   font: 16px/145% var(--sans);
   color-scheme: light dark;
   color: var(--text);
-  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,12 +29,18 @@
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #16171d;
+    --bg: #131320;
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-2: #ff8fc0;
+    --accent-bg: rgba(192, 132, 252, 0.18);
     --accent-border: rgba(192, 132, 252, 0.5);
+
+    --glass-bg: rgba(24, 22, 38, 0.55);
+    --glass-bg-strong: rgba(28, 26, 44, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -39,6 +50,9 @@
 
 body {
   margin: 0;
+  min-height: 100svh;
+  background: var(--bg);
+  overflow-x: hidden;
 }
 
 h1 {
@@ -49,4 +63,46 @@ h1 {
 
 p {
   margin: 0;
+}
+
+/* Fondo con manchas de color difuminadas, para que el glassmorphism tenga
+   algo debajo que se note al desenfocar (backdrop-filter). */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-blobs span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+}
+
+.bg-blobs span:nth-child(1) {
+  width: 420px;
+  height: 420px;
+  top: -10%;
+  left: -8%;
+  background: var(--accent);
+}
+
+.bg-blobs span:nth-child(2) {
+  width: 380px;
+  height: 380px;
+  top: 40%;
+  right: -10%;
+  background: var(--accent-2);
+}
+
+.bg-blobs span:nth-child(3) {
+  width: 320px;
+  height: 320px;
+  bottom: -12%;
+  left: 20%;
+  background: #5fd4ff;
+  opacity: 0.35;
 }

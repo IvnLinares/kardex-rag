@@ -43,7 +43,9 @@ const segments = computed<Segment[]>(() => {
           <template v-else>{{ segment.text }}</template>
         </template>
       </template>
-      <span v-else>…</span>
+      <span v-else class="typing-dots" aria-label="Escribiendo">
+        <span></span><span></span><span></span>
+      </span>
     </p>
   </div>
 </template>
@@ -52,20 +54,22 @@ const segments = computed<Segment[]>(() => {
 .message {
   max-width: 75%;
   padding: 10px 14px;
-  border-radius: 12px;
+  border-radius: 14px;
   text-align: left;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .message--user {
   align-self: flex-end;
-  background: var(--accent-bg);
+  background: linear-gradient(135deg, var(--accent-bg), var(--glass-bg-strong));
   border: 1px solid var(--accent-border);
 }
 
 .message--assistant {
   align-self: flex-start;
-  background: var(--code-bg);
-  border: 1px solid var(--border);
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
 }
 
 .message__role {
@@ -88,5 +92,41 @@ const segments = computed<Segment[]>(() => {
   color: inherit;
   border-radius: 3px;
   padding: 0 2px;
+}
+
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  height: 1em;
+}
+
+.typing-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: typing-bounce 1.1s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
 }
 </style>

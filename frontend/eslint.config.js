@@ -19,5 +19,14 @@ export default tseslint.config(
       },
     },
   },
+  {
+    // TypeScript ya valida los globals del DOM via "lib" en tsconfig
+    // (@vue/tsconfig/tsconfig.dom.json); no-undef de ESLint no conoce esos
+    // tipos y da falsos positivos (HTMLElement, HTMLSpanElement, etc.).
+    files: ['**/*.ts', '**/*.vue'],
+    rules: {
+      'no-undef': 'off',
+    },
+  },
   prettier,
 )
