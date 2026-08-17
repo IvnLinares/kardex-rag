@@ -116,12 +116,11 @@ function handleSubmit(): void {
 }
 
 .chat__header h1 {
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   margin: 0 0 4px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text-h);
 }
 
 .chat__header p {
@@ -175,19 +174,25 @@ function handleSubmit(): void {
 .chat__form button {
   padding: 10px 20px;
   border-radius: 999px;
-  border: none;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: #fff;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text-h);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
   transition:
     transform 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .chat__form button:hover:not(:disabled) {
   transform: translateY(-1px);
+  background: var(--accent);
+  color: var(--bg);
   box-shadow: 0 4px 14px var(--glass-shadow);
 }
 
