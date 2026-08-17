@@ -1,5 +1,8 @@
 # Kardex RAG — Copiloto Analítico para Inventarios
 
+**Estado: proyecto cerrado.** Sprint de 7 días completo + mejoras de UI post-sprint.
+Único pendiente: grabar el video demo (ver [`DEMO.md`](./DEMO.md)).
+
 Copiloto con IA (RAG) para un sistema de facturación y bodegas: permite consultar en
 lenguaje natural el estado del Kardex, traslados de bodega y reportes, en vez de
 navegar tablas y filtros.
@@ -210,6 +213,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | 5   | Interfaz de Usuario (chat en Vue)                          | ✅ Completo |
 | 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | ✅ Completo |
 | 7   | Retrospectiva y Documentación                              | ✅ Completo |
+| —   | Post-sprint: UI con glassmorphism + GSAP, paleta monocromática | ✅ Completo |
 
 Detalle completo de cada fase en [`CLAUDE.md`](./CLAUDE.md), sección 7 (roadmap)
 y sección 8 (estado actual, con el detalle de cada hito y los bugs reales
