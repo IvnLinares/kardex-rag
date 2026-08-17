@@ -90,7 +90,24 @@ python -m app.rag.ingest
 Carga `backend/data/kardex.csv` (50 registros ficticios) a la colección `kardex`
 en pgvector, vía `langchain-postgres`.
 
-### 4. Frontend
+### 4. Probar la cadena RAG por consola
+
+Requiere el modelo de chat en Ollama (una sola vez, ~2.2GB):
+
+```bash
+docker exec -it kardex_rag_ollama ollama pull phi3
+```
+
+```bash
+cd backend
+python -m app.rag.console
+```
+
+> **Nota:** `phi3` corre en CPU en la mayoría de los setups locales (~10 tok/s).
+> Las respuestas pueden tardar. Es un modelo chico: puede no negarse siempre a
+> responder preguntas fuera del contexto del Kardex — ver `CLAUDE.md` sección 8.
+
+### 5. Frontend
 
 ```bash
 cd frontend
@@ -142,7 +159,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | --- | -------------------------------------------------------- | ------ |
 | 1   | Infraestructura y Setup                                   | ✅ Completo |
 | 2   | Datos y Memoria (ingesta CSV → embeddings → pgvector)      | ✅ Completo |
-| 3   | Cerebro de la IA (cadena RAG, retriever, system prompt)    | Pendiente |
+| 3   | Cerebro de la IA (cadena RAG, retriever, system prompt)    | ✅ Completo |
 | 4   | Exposición y Conexión (`/api/chat` con streaming)          | Pendiente |
 | 5   | Interfaz de Usuario (chat en Vue)                          | Pendiente |
 | 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | Pendiente |

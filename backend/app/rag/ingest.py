@@ -8,16 +8,15 @@ import logging
 from pathlib import Path
 
 from langchain_community.document_loaders import CSVLoader
-from langchain_ollama import OllamaEmbeddings
 from langchain_postgres import PGVector
 
 from app.core.config import settings
+from app.rag.vectorstore import COLLECTION_NAME, get_embeddings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 CSV_PATH = Path(__file__).resolve().parent.parent.parent / "data" / "kardex.csv"
-COLLECTION_NAME = "kardex"
 
 METADATA_COLUMNS = [
     "producto_id",
@@ -47,13 +46,8 @@ def main() -> None:
     documents = load_documents()
     logger.info("Cargados %d documentos desde %s", len(documents), CSV_PATH)
 
-    embeddings = OllamaEmbeddings(
-        model=settings.ollama_embedding_model,
-        base_url=settings.ollama_base_url,
-    )
-
     vectorstore = PGVector(
-        embeddings=embeddings,
+        embeddings=get_embeddings(),
         collection_name=COLLECTION_NAME,
         connection=settings.database_url_psycopg,
         use_jsonb=True,
