@@ -181,7 +181,7 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | 2   | Datos y Memoria (ingesta CSV → embeddings → pgvector)      | ✅ Completo |
 | 3   | Cerebro de la IA (cadena RAG, retriever, system prompt)    | ✅ Completo |
 | 4   | Exposición y Conexión (`/api/chat` con streaming)          | ✅ Completo |
-| 5   | Interfaz de Usuario (chat en Vue)                          | Pendiente |
+| 5   | Interfaz de Usuario (chat en Vue)                          | ✅ Completo |
 | 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | Pendiente |
 | 7   | Retrospectiva y Documentación                              | Pendiente |
 
