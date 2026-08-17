@@ -25,6 +25,7 @@ navegar tablas y filtros.
 /frontend        Vue 3 + Vite + TS — components/views/composables, Dockerfile
 /infra           init.sql (habilita pgvector)
 docker-compose.yml
+DEMO.md          guion para grabar el video demo
 .env.example
 ```
 
@@ -42,6 +43,21 @@ cp .env.example .env
 
 Por defecto usa Ollama local (no requiere API key). Para usar OpenAI, editá `.env`
 y comentá/descomentá las secciones correspondientes.
+
+### Opción rápida: todo en Docker
+
+```bash
+docker compose up -d --build
+docker exec -it kardex_rag_ollama ollama pull phi3
+docker exec -it kardex_rag_ollama ollama pull nomic-embed-text
+cd backend && python -m app.rag.ingest   # una sola vez, para cargar el CSV
+```
+
+Levanta los 4 servicios (DB, Ollama, backend, frontend) contenedorizados, con
+hot-reload (`backend/` y `frontend/` están montados como volumen). Backend en
+`http://localhost:8000`, frontend en `http://localhost:5173`. La ingesta
+(`python -m app.rag.ingest`) todavía requiere el venv local (ver sección 2)
+porque no hay un comando de un solo paso dentro del contenedor.
 
 ### 1. Infraestructura (DB + LLM)
 
@@ -119,8 +135,10 @@ python -m app.rag.console
 ```
 
 > **Nota:** `phi3` corre en CPU en la mayoría de los setups locales (~10 tok/s).
-> Las respuestas pueden tardar. Es un modelo chico: puede no negarse siempre a
-> responder preguntas fuera del contexto del Kardex — ver `CLAUDE.md` sección 8.
+> Las respuestas pueden tardar. El control de preguntas fuera de contexto no
+> depende solo del prompt (un modelo chico como `phi3` no lo seguía de forma
+> confiable) sino de un guardrail por score de similitud — ver `CLAUDE.md`
+> sección 8, Día 6.
 
 ### 5. Probar el endpoint `/api/chat` (streaming)
 
@@ -191,9 +209,11 @@ que toque `backend/` o `frontend/` (ver `.github/workflows/`).
 | 4   | Exposición y Conexión (`/api/chat` con streaming)          | ✅ Completo |
 | 5   | Interfaz de Usuario (chat en Vue)                          | ✅ Completo |
 | 6   | Depuración y Análisis (anti-alucinación, UI generativa)    | ✅ Completo |
-| 7   | Retrospectiva y Documentación                              | Pendiente |
+| 7   | Retrospectiva y Documentación                              | ✅ Completo |
 
-Detalle completo de cada fase en [`CLAUDE.md`](./CLAUDE.md), sección 7.
+Detalle completo de cada fase en [`CLAUDE.md`](./CLAUDE.md), sección 7 (roadmap)
+y sección 8 (estado actual, con el detalle de cada hito y los bugs reales
+encontrados en el camino). Guion para grabar la demo: [`DEMO.md`](./DEMO.md).
 
 ## Seguridad
 

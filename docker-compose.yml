@@ -1,5 +1,5 @@
 # Proyecto: Módulo AI - Copiloto Analítico para Sistema de Inventarios y Kardex (Smart RAG)
-# Día 1: solo levantamos DB + LLM local. Backend y Frontend se agregan a partir del Día 1 tarde / Día 3.
+# Stack completo: DB (pgvector) + LLM local (Ollama) + backend (FastAPI) + frontend (Vue).
 
 services:
   db:
@@ -30,27 +30,36 @@ services:
     volumes:
       - kardex_ollama:/root/.ollama
 
-  # backend:
-  #   build: ./backend
-  #   container_name: kardex_rag_backend
-  #   env_file: .env
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   volumes:
-  #     - ./backend:/app
-  #   # Descomentar cuando exista backend/Dockerfile (Día 3-4)
+  backend:
+    build: ./backend
+    container_name: kardex_rag_backend
+    env_file: .env
+    environment:
+      # Dentro de la red de docker compose, los otros servicios se resuelven
+      # por nombre, no por localhost/el puerto publicado en el host.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-kardex_admin}:${POSTGRES_PASSWORD:-changeme}@db:5432/${POSTGRES_DB:-kardex_rag}
+      OLLAMA_BASE_URL: http://ollama:11434
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    volumes:
+      - ./backend:/app
 
-  # frontend:
-  #   build: ./frontend
-  #   container_name: kardex_rag_frontend
-  #   ports:
-  #     - "5173:5173"
-  #   volumes:
-  #     - ./frontend:/app
-  #   # Descomentar cuando exista frontend/Dockerfile (Día 5)
+  frontend:
+    build: ./frontend
+    container_name: kardex_rag_frontend
+    env_file: .env
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   kardex_pgdata:
