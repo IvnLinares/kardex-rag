@@ -1,5 +1,9 @@
 # Kardex RAG — Copiloto Analítico para Inventarios
 
+[![Backend CI](https://github.com/IvnLinares/kardex-rag/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/IvnLinares/kardex-rag/actions/workflows/backend-ci.yml)
+[![Frontend CI](https://github.com/IvnLinares/kardex-rag/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/IvnLinares/kardex-rag/actions/workflows/frontend-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 **Estado: proyecto cerrado.** Sprint de 7 días completo + mejoras de UI post-sprint.
 Único pendiente: grabar el video demo (ver [`DEMO.md`](./DEMO.md)).
 
@@ -225,3 +229,7 @@ encontrados en el camino). Guion para grabar la demo: [`DEMO.md`](./DEMO.md).
   commiteado — ver `.gitignore`).
 - Inputs hacia el LLM y hacia SQL se sanitizan; las queries usan el driver
   parametrizado (nunca concatenación de SQL).
+
+## Licencia
+
+[MIT](./LICENSE).

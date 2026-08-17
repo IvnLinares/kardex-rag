@@ -22,8 +22,9 @@ frontend/dist/
 .ruff_cache/
 .pytest_cache/
 
-# Claude Code local config
-.claude/
+# Claude Code local config (settings.json es compartido, se commitea)
+.claude/*
+!.claude/settings.json
 
 # Editor / IDE
 .vscode/*
