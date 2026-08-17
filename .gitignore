@@ -11,6 +11,9 @@ backend/*.egg-info/
 frontend/node_modules/
 frontend/dist/
 
+# Claude Code local config
+.claude/
+
 # OS / editor
 .DS_Store
 *.log
